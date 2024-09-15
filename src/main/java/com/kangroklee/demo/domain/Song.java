@@ -26,8 +26,8 @@ public class Song {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    @OneToMany(mappedBy = "song")
-    private List<Genre> genre = new ArrayList<>();
+    @ManyToMany(mappedBy = "songs")
+    private List<Genre> genres = new ArrayList<>();
 
     //Song -> Playlist로 ManyToMany 정의할 필요 있을까? 단방향으로만 둬도 되지 않을까?
     @ManyToMany
