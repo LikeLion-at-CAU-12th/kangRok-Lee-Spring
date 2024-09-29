@@ -1,7 +1,5 @@
 package com.kangroklee.demo.repository;
 
-import com.kangroklee.demo.repository.MemberJpaRepository;
-import com.kangroklee.demo.repository.MemberRepository;
 import com.kangroklee.demo.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MemberJpaRepositoryTest {
 
     @Autowired
-    MemberJpaRepository memberRepository;
+    MemberJpaRepository memberJpaRepository;
 
     @Test
     @Transactional
@@ -28,8 +26,8 @@ class MemberJpaRepositoryTest {
                 .email("polarpheno@gmail.com")
                 .build();
 
-        Member savedMember = memberRepository.save(member);
-        Member findMember = memberRepository.findById(savedMember.getId()).orElse(null);
+        Member savedMember = memberJpaRepository.save(member);
+        Member findMember = memberJpaRepository.findById(savedMember.getId()).orElse(null);
 
         Assertions.assertThat(findMember).isNotNull();
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
@@ -57,11 +55,11 @@ class MemberJpaRepositoryTest {
                 .email("polarpheno@gmail.com")
                 .build();
 
-        memberRepository.save(member1);
-        memberRepository.save(member2);
-        memberRepository.save(member3);
+        memberJpaRepository.save(member1);
+        memberJpaRepository.save(member2);
+        memberJpaRepository.save(member3);
 
-        List<Member> members = memberRepository.findAll();
+        List<Member> members = memberJpaRepository.findAll();
 
         for (Member member : members) {
             System.out.println(member.getId() + " " + member.getAge() + " " + member.getUsername());
@@ -79,9 +77,9 @@ class MemberJpaRepositoryTest {
                 .email("polarpheno@gmail.com")
                 .build();
 
-        memberRepository.save(member);
+        memberJpaRepository.save(member);
 
-        List<Member> byUsername = memberRepository.findByUsername(member.getUsername());
+        List<Member> byUsername = memberJpaRepository.findByUsername(member.getUsername());
 
         for (Member member1 : byUsername) {
             System.out.println(member1.getId());
