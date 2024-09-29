@@ -27,6 +27,6 @@ public class Playlist {
     @JoinColumn(name = "member_id")
     private Member owner;
 
-    @ManyToMany(mappedBy = "playlist")
+    @ManyToMany(mappedBy = "playlists")
     private List<Song> songs = new ArrayList<>();
 }
