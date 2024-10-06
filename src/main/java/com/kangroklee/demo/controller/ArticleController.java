@@ -1,6 +1,7 @@
 package com.kangroklee.demo.controller;
 
 import com.kangroklee.demo.dto.request.ArticleCreateRequestDto;
+import com.kangroklee.demo.dto.request.ArticleUpdateRequestDto;
 import com.kangroklee.demo.dto.response.ArticleResponseDto;
 import com.kangroklee.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ArticleController {
     public ResponseEntity<Long> createArticle(@RequestBody ArticleCreateRequestDto requestDto) {
         Long articleId = articleService.createArticle(requestDto);
         return new ResponseEntity<>(articleId, HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<ArticleResponseDto> updateArticle(@RequestBody ArticleUpdateRequestDto requestDto) {
+        return ResponseEntity.ok(articleService.updateArticle(requestDto));
     }
 
     @GetMapping("/member/{memberId}")
