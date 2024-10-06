@@ -2,6 +2,7 @@ package com.kangroklee.demo.service;
 
 import com.kangroklee.demo.domain.*;
 import com.kangroklee.demo.dto.request.ArticleCreateRequestDto;
+import com.kangroklee.demo.dto.request.ArticleDeleteRequestDto;
 import com.kangroklee.demo.dto.request.ArticleUpdateRequestDto;
 import com.kangroklee.demo.dto.response.ArticleResponseDto;
 import com.kangroklee.demo.repository.*;
@@ -96,6 +97,15 @@ public class ArticleService {
         return new ArticleResponseDto(newArticle.getId(), newArticle.getTitle(), newArticle.getContent());
     }
 
+    @Transactional
+    public ArticleResponseDto deleteArticle(ArticleDeleteRequestDto requestDto) {
+        Article article = articleRepository.findById(requestDto.getArticleId()).orElseThrow(() -> new RuntimeException("해당 id를 가진 게시글이 존재하지 않습니다"));
+        List<CategoryArticle> oldCategoryArticles = categoryArticleRepository.findByArticle(article);
+        categoryArticleRepository.deleteAll(oldCategoryArticles);
+        articleRepository.delete(article);
+
+        return new ArticleResponseDto(article.getId(), article.getTitle(), article.getContent());
+    }
 
     public List<ArticleResponseDto> findArticlesByMemberId(Long memberId) {
         List<Article> articles = articleRepository.findByMemberId(memberId);

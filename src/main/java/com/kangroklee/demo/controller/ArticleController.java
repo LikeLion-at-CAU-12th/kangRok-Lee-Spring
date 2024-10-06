@@ -1,6 +1,7 @@
 package com.kangroklee.demo.controller;
 
 import com.kangroklee.demo.dto.request.ArticleCreateRequestDto;
+import com.kangroklee.demo.dto.request.ArticleDeleteRequestDto;
 import com.kangroklee.demo.dto.request.ArticleUpdateRequestDto;
 import com.kangroklee.demo.dto.response.ArticleResponseDto;
 import com.kangroklee.demo.service.ArticleService;
@@ -26,6 +27,11 @@ public class ArticleController {
     @PutMapping
     public ResponseEntity<ArticleResponseDto> updateArticle(@RequestBody ArticleUpdateRequestDto requestDto) {
         return ResponseEntity.ok(articleService.updateArticle(requestDto));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<ArticleResponseDto> deleteArticle(@RequestBody ArticleDeleteRequestDto requestDto) {
+        return ResponseEntity.ok(articleService.deleteArticle(requestDto));
     }
 
     @GetMapping("/member/{memberId}")
