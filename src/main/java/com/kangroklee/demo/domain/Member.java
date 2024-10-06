@@ -1,10 +1,7 @@
 package com.kangroklee.demo.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,11 +10,15 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Member {
-    public Member() {
+    @Builder
+    public Member(String name, String username, String email, Integer age) {
         this.name = name;
+        this.username = username;
         this.email = email;
         this.created_at = LocalDateTime.now();
+        this.age = age;
     }
 
     @Id
@@ -25,9 +26,13 @@ public class Member {
     @Column(name = "member_id")
     private long id;
 
+    @Column(nullable = false)
+    private String username;
+
     private String name;
     private String email;
     private LocalDateTime created_at;
+    private int age;
 
     @OneToMany(mappedBy = "owner")
     private List<Playlist> myPlaylists = new ArrayList<>();
