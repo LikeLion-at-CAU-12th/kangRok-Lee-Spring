@@ -1,9 +1,7 @@
 package com.kangroklee.demo.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +10,7 @@ import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +25,13 @@ public class Article {
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    @Builder
+    public Article(String title, String content, Member member, List<Comment> comments) {
+        this.title = title;
+        this.content = content;
+        this.member = member;
+        this.comments = comments != null ? comments : new ArrayList<>();
+    }
 }
+
