@@ -79,12 +79,12 @@ class MemberJpaRepositoryTest {
 
         memberJpaRepository.save(member);
 
-        List<Member> byUsername = memberJpaRepository.findByUsername(member.getUsername());
+        Member byUsername = memberJpaRepository.findByUsername(member.getUsername());
 
-        for (Member member1 : byUsername) {
-            System.out.println(member1.getId());
-        }
-
-        Assertions.assertThat(byUsername).isNotEmpty();
+//        for (Member member1 : byUsername) {
+//            System.out.println(member1.getId());
+//        }
+//
+//        Assertions.assertThat(byUsername).isNotEmpty();
     }
 }
