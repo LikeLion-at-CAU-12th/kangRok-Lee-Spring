@@ -40,6 +40,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // 새로운 사용자는 DB에 저장
         if (member.getId() == null) {
             memberRepository.save(member);
+        } else { // 기존 사용자는 유저명을 구글 유저명으로 변경
+            member.setName(username);
+            memberRepository.save(member);
         }
 
         return new DefaultOAuth2User(
